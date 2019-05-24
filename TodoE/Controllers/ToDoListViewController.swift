@@ -11,36 +11,15 @@ import UIKit
 class ToDoListViewController: UITableViewController {
 
     var itemArray = [Item]()
+    //Converting our save data to a more reliable sourse
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
-    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
+        super.viewDidLoad()        
         
-
-        let newItem = Item()
-        newItem.title = " Find Something"
-        itemArray.append(newItem)
+        loadItems()
         
-        let newItem2 = Item()
-        newItem2.title = " Buy Stuff"
-        itemArray.append(newItem2)
-        
-        let newItem3 = Item()
-        newItem3.title = "Eat"
-        itemArray.append(newItem3)
-        
-        if let items = defaults.array(forKey: "ToDoListArray") as? [Item]{
-            itemArray = items
-        }
-
-        
-        
-        
-        super.viewDidLoad()
-        
-        
-        
-        // Do any additional setup after loading the view.
     }
     
     //MARK - Tableview DataSource Methods
@@ -81,20 +60,7 @@ class ToDoListViewController: UITableViewController {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
         
-        
-        //Enabling the checkmark when pressed and removing if alreadu on
-        
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-
-        }
-        
-
-        //Reloading the data
-        tableView.reloadData()
+        saveItems()
         
         //Deselect the row so it doesnt show the gray the whole time
             tableView.deselectRow(at: indexPath, animated: true)
@@ -117,15 +83,10 @@ class ToDoListViewController: UITableViewController {
             
             let newItem = Item()
             newItem.title = textField.text!
+            
             self.itemArray.append(newItem)
             
-            
-              //Adding saving functionality
-            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
-            
-            //Reloading the table to add the new text
-            self.tableView.reloadData()
-            
+            self.saveItems()
           
         }
         
@@ -139,6 +100,40 @@ class ToDoListViewController: UITableViewController {
         
             present(alert, animated: true, completion: nil)
     
+    }
+    
+    //MARK - Model Manipulation Methods
+    
+    func saveItems(){
+        
+        //Adding saving functionality with NSCoder
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+            
+        } catch {
+            print("Error encoding item array , \(error)")
+        }
+        
+        //Reloading the table to add the new text
+        self.tableView.reloadData()
+
+        
+    }
+    
+    func loadItems(){
+        
+        if let data = try? Data(contentsOf: dataFilePath!){
+            let decoder = PropertyListDecoder()
+        
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+        }   catch {
+                print("Error Decoding items array \(error)")
+            
+        }
+    }
     }
     
     
