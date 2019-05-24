@@ -10,15 +10,30 @@ import UIKit
 
 class ToDoListViewController: UITableViewController {
 
-    var itemArray = ["Find It", "Destroy Stuff", "Eat"]
+    var itemArray = [Item]()
     
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         
-        if let items = defaults.array(forKey: "ToDoListArray") as? [String]{
-            itemArray=items
+
+        let newItem = Item()
+        newItem.title = " Find Something"
+        itemArray.append(newItem)
+        
+        let newItem2 = Item()
+        newItem2.title = " Buy Stuff"
+        itemArray.append(newItem2)
+        
+        let newItem3 = Item()
+        newItem3.title = "Eat"
+        itemArray.append(newItem3)
+        
+        if let items = defaults.array(forKey: "ToDoListArray") as? [Item]{
+            itemArray = items
         }
+
+        
         
         
         super.viewDidLoad()
@@ -36,9 +51,22 @@ class ToDoListViewController: UITableViewController {
 
 //Where to insert the data and to reuse cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
-        cell.textLabel?.text = itemArray[indexPath.row]
+        let item = itemArray[indexPath.row]
+        
+
+
+        cell.textLabel?.text = item.title
+        
+        //Ternary opertor usage
+        // value = condition ? valueIfTrue : valueIfFalse
+        //Set the cell . ACCytype if item.done check mark is true :: or none if false
+        cell.accessoryType = item.done ? .checkmark : .none
+        
         
         return cell
     }
@@ -47,6 +75,12 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //print(itemArray[indexPath.row])
+        
+        //Checkmark completion property
+        //if true, then it becomes false and vice versa
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        
+        
         
         //Enabling the checkmark when pressed and removing if alreadu on
         
@@ -59,6 +93,8 @@ class ToDoListViewController: UITableViewController {
         }
         
 
+        //Reloading the data
+        tableView.reloadData()
         
         //Deselect the row so it doesnt show the gray the whole time
             tableView.deselectRow(at: indexPath, animated: true)
@@ -77,7 +113,12 @@ class ToDoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             
             //What will happen once the user pressed the add button after adding text
-            self.itemArray.append(textField.text!)
+//            self.itemArray.append(textField.text!)
+            
+            let newItem = Item()
+            newItem.title = textField.text!
+            self.itemArray.append(newItem)
+            
             
               //Adding saving functionality
             self.defaults.set(self.itemArray, forKey: "ToDoListArray")
