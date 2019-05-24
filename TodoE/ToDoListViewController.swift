@@ -12,8 +12,15 @@ class ToDoListViewController: UITableViewController {
 
     var itemArray = ["Find It", "Destroy Stuff", "Eat"]
     
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
+        
+        if let items = defaults.array(forKey: "ToDoListArray") as? [String]{
+            itemArray=items
+        }
+        
+        
         super.viewDidLoad()
         
         
@@ -71,8 +78,14 @@ class ToDoListViewController: UITableViewController {
             
             //What will happen once the user pressed the add button after adding text
             self.itemArray.append(textField.text!)
+            
+              //Adding saving functionality
+            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
+            
             //Reloading the table to add the new text
             self.tableView.reloadData()
+            
+          
         }
         
         //Adding the text field to the alert!
