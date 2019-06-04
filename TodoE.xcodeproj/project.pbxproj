@@ -13,8 +13,9 @@
 		FCB669E1229763770009FE67 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCB669DF229763770009FE67 /* Main.storyboard */; };
 		FCB669E32297637A0009FE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB669E22297637A0009FE67 /* Assets.xcassets */; };
 		FCB669E62297637A0009FE67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCB669E42297637A0009FE67 /* LaunchScreen.storyboard */; };
-		FCB669F5229886840009FE67 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FCB669F3229886840009FE67 /* DataModel.xcdatamodeld */; };
 		FCB66A182298B7300009FE67 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB66A172298B7300009FE67 /* CategoryTableViewController.swift */; };
+		FCD467AA22A6D41F00BE7178 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD467A922A6D41F00BE7178 /* Category.swift */; };
+		FCD467AC22A6D42800BE7178 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD467AB22A6D42800BE7178 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +29,9 @@
 		FCB669E22297637A0009FE67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FCB669E52297637A0009FE67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FCB669E72297637A0009FE67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCB669F4229886840009FE67 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		FCB66A172298B7300009FE67 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
+		FCD467A922A6D41F00BE7178 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		FCD467AB22A6D42800BE7178 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +60,6 @@
 				C37BA6A5D066107A7AB43428 /* Pods-TodoE.debug.xcconfig */,
 				A639C08C8C3AFED755F213F9 /* Pods-TodoE.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -96,7 +97,8 @@
 		FCB669EF229777750009FE67 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				FCB669F3229886840009FE67 /* DataModel.xcdatamodeld */,
+				FCD467A922A6D41F00BE7178 /* Category.swift */,
+				FCD467AB22A6D42800BE7178 /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -250,8 +252,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCB669DE229763770009FE67 /* ToDoListViewController.swift in Sources */,
-				FCB669F5229886840009FE67 /* DataModel.xcdatamodeld in Sources */,
+				FCD467AA22A6D41F00BE7178 /* Category.swift in Sources */,
 				FCB669DC229763770009FE67 /* AppDelegate.swift in Sources */,
+				FCD467AC22A6D42800BE7178 /* Item.swift in Sources */,
 				FCB66A182298B7300009FE67 /* CategoryTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,19 +457,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		FCB669F3229886840009FE67 /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				FCB669F4229886840009FE67 /* DataModel.xcdatamodel */,
-			);
-			currentVersion = FCB669F4229886840009FE67 /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = FCB669D0229763770009FE67 /* Project object */;
 }
